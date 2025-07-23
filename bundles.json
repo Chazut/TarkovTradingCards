@@ -1,0 +1,912 @@
+{
+  "manifest": [
+    {
+      "key": "cards/ttc_cards_shared.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_ak_74n_dust_cover_classic.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_m4a1_meta.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_mosin_nagant_obrez_sawed_off.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_mp7a1_zero_recoil.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+	  {
+      "key": "cards/ttc_uncommon_rpk_16_squad_support.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+	  {
+      "key": "cards/ttc_rare_as_val_silent_hunter.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+	  {
+      "key": "cards/ttc_legendary_svds_one_tap_express.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+	  {
+      "key": "cards/ttc_epic_vss_vintorez_night_stalker.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+	  {
+      "key": "cards/ttc_common_saiga_12_room_clearer.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+	  {
+      "key": "cards/ttc_secret_glock_18c_spraymaster.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_killa_mall_marauder.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_tagilla_factory_executioner.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_glukhar_trainyard_warlord.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_sanitar_mad_surgeon.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_reshala_golden_tzar.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_shturman_woods_predator.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_cultist_priest_forsaken_prophet.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_knight_rogue_commander.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_big_pipe_grenadier_king.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_birdeye_silent_overwatch.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_prapor_debut_contract.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_therapist_operation_aquarius.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_skier_chemical_part_4.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_peacekeeper_wet_job.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_mechanic_gunsmith_mastery.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_ragman_the_stylish_one.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_jaeger_the_huntsman_path.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_fence_the_collector.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_lightkeeper_make_amends.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_prapor_punisher_part_6.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_usec_operator_contractor_blue.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_bear_operator_vympel_vet.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_scavenger_back_alley_loot_rat.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_cultist_acolyte_midnight_blade.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_rogue_ex_usec_gas_station_gunner.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_raider_labs_crusher.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_bloodhound_merc_tracker.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_terragroup_security_blacksite_guard.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_unisg_saboteur_shadow_cell.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_pmc_coalition_fragile_truce.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_zb_1011_bunker_extract.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_ultra_mall_atrium.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_west_wing_room_310.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_king_building_rooftop.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_lab_server_nexus.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_water_treatment_plant.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_sawmill_overwatch.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_pinewood_hotel_lobby.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_factory_gate_3.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_lightkeepers_island_jetty.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_halloween.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_santa_scavs_gift_run.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_new_year_wipe_countdown.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_twitch_drops_frenzy.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_lightkeeper_live_negotiation.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_april_fools_golden_gun_day.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_summer_rogue_beach_party.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_therapists_flu_epidemic.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_killa_and_tagilla_factory_showdown.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_anniversary_free_labs_access.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_jaegers_letter.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_secure_flash_drive.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_golden_zibbo_lighter.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_bronze_pocket_watch.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_gas_analyzer.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_ledx_skin_transilluminator.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_car_battery.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_military_power_filter.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_tank_battery.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_tetriz_portable_game_console.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_generator.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_scav_case.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_bitcoin_farm.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_cultist_circle.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_illumination.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_intelligence_center.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_air_filtering_unit.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_lavatory.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_workbench.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_booze_generator.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_just_a_g_phone.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_wheres_the_kappa.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_press_f_to_pay_reserve.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_quest_item_kek.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_common_factory_hatchet_runner.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_ruble_sink_deluxe.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_voip_friendly_spam.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_streamers_labs_keycard.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_chad_vs_rat_showdown.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_bad_rng_blues.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_blueprint_terragroup_labs_level_3.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_red_keycard_prototype.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_epic_cultist_relic_obelisk_shard.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_legendary_lightkeepers_sealed_ledger.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_encrypted_bunker_map_zb_013.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_rogue_commander_dog_tag_zero_three.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_strange_signal_amplifier.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_uncommon_old_world_coin_tsars_rouble.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_rare_mysterious_blood_stained_letter.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    },
+    {
+      "key": "cards/ttc_secret_kappa_container_mock_up.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle",
+        "cards/ttc_cards_shared.bundle"
+      ]
+    }
+  ]
+}
