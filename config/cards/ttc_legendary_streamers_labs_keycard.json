@@ -6,5 +6,6 @@
   "item_prefab_path": "cards/ttc_legendary_streamers_labs_keycard.bundle",
   "color": "#FF9C33",
   "price": 150000,
-  "rarity": "Legendary"
+  "rarity": "Legendary",
+  "theme": "community_memes_and_traditions"
 }

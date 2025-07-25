@@ -6,5 +6,6 @@
   "item_prefab_path": "cards/ttc_epic_new_year_wipe_countdown.bundle",
   "color": "#8E5BFF",
   "price": 50000,
-  "rarity": "Epic"
+  "rarity": "Epic",
+  "theme": "seasonal_events"
 }

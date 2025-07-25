@@ -6,5 +6,6 @@
   "item_prefab_path": "cards/ttc_rare_cultist_acolyte_midnight_blade.bundle",
   "color": "#3E7BC1",
   "price": 22500,
-  "rarity": "Rare"
+  "rarity": "Rare",
+  "theme": "factions_and_pmc"
 }

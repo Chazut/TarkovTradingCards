@@ -42,6 +42,21 @@ export function sortByRarity(
 }
 
 export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
+    private logger!: ILogger;
+    private container!: DependencyContainer;
+    private jsonUtil!: JsonUtil;
+    private db!: ReturnType<DatabaseServer["getTables"]>;
+
+    private readonly modName = "Tarkov Trading Cards";
+    private readonly debug = Boolean(modConfig.debug);
+    private configInventory: any;
+    private rarityCounts: Record<string, number> = {};
+	
+	private readonly currencyMap: Record<string, string> = {
+		roubles:   "5449016a4bdc2d6f028b456f",
+		dollars:   "5696686a4bdc2da3298b456a",
+		euros:     "5ac3b934156ae10c4430e83c",
+	};
 
     public preSptLoad(container: DependencyContainer): void {
         this.container = container;
@@ -72,12 +87,8 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
             this.log(Color.INFO, "probabilities.json auto-updated");
         }
 
-        this.rarityCounts = {};
         for (const card of customItemConfigs) {
             this.rarityCounts[card.rarity] = (this.rarityCounts[card.rarity] || 0) + 1;
-        }
-
-        for (const card of customItemConfigs) {
             try {
                 this.injectCard(card);
             } catch (e) {
@@ -91,8 +102,17 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
 
         this.extendCardStorageCases();
 
-        const album = this.buildCollectorAlbum(customItemConfigs);
-        customItemConfigs.push(album);
+        const cardsByTheme: Record<string, typeof customItemConfigs> = {};
+        for (const card of customItemConfigs) {
+            if (!card.theme) continue;
+            if (!cardsByTheme[card.theme]) cardsByTheme[card.theme] = [];
+            cardsByTheme[card.theme].push(card);
+        }
+
+        for (const [theme, cards] of Object.entries(cardsByTheme)) {
+            const binder = this.buildThemedCardBinder(cards, theme);
+            customItemConfigs.push(binder);
+        }
     }
 
     /**
@@ -325,24 +345,22 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
     }
 
     /**
-     * Builds the Collector Album container dynamically with one slot per card.
-     * Cards are sorted by rarity and name.
-     * @param cards All injected cards
-     * @returns Album item definition
+     * Builds a themed card binder containing only cards from a specific theme.
+     * @param cards All cards of the theme
+     * @param theme Name of the theme (used for naming and loading correct config file)
      */
-    private buildCollectorAlbum(cards: any[]): any {
-        const albumBase = JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, "../config/album_base.json"), "utf-8")
+    private buildThemedCardBinder(cards: any[], theme: string): any {
+        const binderBase = JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, "../config/binder_base.json"), "utf-8")
         );
-        const albumOverride = JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, "../config/containers/ttc_booster_pack.json"), "utf-8")
-        );
+        const themeBinderPath = path.resolve(__dirname, `../config/containers/ttc_binder_${theme}.json`);
+        const binderOverride = JSON.parse(fs.readFileSync(themeBinderPath, "utf-8"));
 
-        const album = { ...albumBase, ...albumOverride };
-        const mountProps = this.db.templates.items[albumBase.clone_item]._props;
+        const binder = { ...binderBase, ...binderOverride };
+        const mountProps = this.db.templates.items[binderBase.clone_item]._props;
         const genId = () => (Date.now().toString(16) + Math.random().toString(16)).slice(0, 24);
 
-        album._props = {
+        binder._props = {
             ...mountProps,
             Width: 1,
             Height: 1,
@@ -352,13 +370,10 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
                 .map(c => ({
                     _id: genId(),
                     _name: `mod_mount_${c.id}`,
-                    _parent: album.id,
+                    _parent: binder.id,
                     _type: "Slot",
                     _props: {
-                        filters: [{
-                            Filter: [c.id],
-                            ExcludedFilter: []
-                        }],
+                        filters: [{ Filter: [c.id], ExcludedFilter: [] }],
                         required: false,
                         max_count: 1,
                         iconId: "mount"
@@ -366,9 +381,9 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
                 }))
         };
 
-        this.injectContainer(album);
-        this.log(Color.INFO, `Collector Album built successfully with ${cards.length} cards`);
-        return album;
+        this.injectContainer(binder);
+        this.log(Color.INFO, `Card binder '${theme}' built with ${cards.length} cards`);
+        return binder;
     }
 
     /**

@@ -6,5 +6,6 @@
   "item_prefab_path": "cards/ttc_rare_west_wing_room_310.bundle",
   "color": "#3E7BC1",
   "price": 22500,
-  "rarity": "Rare"
+  "rarity": "Rare",
+  "theme": "iconic_locations"
 }

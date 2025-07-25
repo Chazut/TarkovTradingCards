@@ -1,0 +1,11 @@
+{
+  "id": "68836790691c107f4fedc504",
+  "item_name": "Card Binder – Factions and PMC",
+  "item_short_name": "Factions & PMC",
+  "item_description": "An empty booster wrapper repurposed for cataloging the various operators, mercenaries, and faction members of Tarkov.",
+  "item_prefab_path": "containers/ttc_booster_pack.bundle",
+  "color": "#7B68EE",
+  "price": 1000,
+  "currency": "roubles",
+  "trader": "54cb50c76803fa8b248b4571"
+}

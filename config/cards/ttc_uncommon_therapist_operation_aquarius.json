@@ -6,5 +6,6 @@
   "item_prefab_path": "cards/ttc_uncommon_therapist_operation_aquarius.bundle",
   "color": "#66B776",
   "price": 10000,
-  "rarity": "Uncommon"
+  "rarity": "Uncommon",
+  "theme": "traders_and_quests"
 }
