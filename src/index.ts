@@ -4,23 +4,25 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { JsonUtil } from "@spt/utils/JsonUtil";
-import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 
 import { customItemConfigs } from "./item_configs";
-import fs  from "fs";
+import fs from "fs";
 import path from "path";
 import JSON5 from "json5";
 
-const cfgPath  = path.resolve(__dirname, "../config/mod_config.jsonc");
+const cfgPath = path.resolve(__dirname, "../config/mod_config.jsonc");
 const modConfig = JSON5.parse(fs.readFileSync(cfgPath, "utf-8"));
 
 let relativeProbabilities: Record<string, any> = {};
+
+// Console color enum for structured logging
 enum Color {
     INFO = "blue",
     DEBUG = "yellow",
     ERROR = "red"
 }
 
+// Fixed rarity order and mapping for sorting purposes
 const rarityOrder = ["Common", "Uncommon", "Rare", "Epic", "Legendary", "Secret"] as const;
 type Rarity = typeof rarityOrder[number];
 
@@ -28,6 +30,9 @@ const rarityWeight: Record<Rarity, number> = Object.fromEntries(
     rarityOrder.map((r, idx) => [r, idx])
 ) as Record<Rarity, number>;
 
+/**
+ * Compare function to sort cards by rarity and name.
+ */
 export function sortByRarity(
     a: { rarity: Rarity; item_name: string },
     b: { rarity: Rarity; item_name: string }
@@ -37,50 +42,31 @@ export function sortByRarity(
 }
 
 export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
-    private logger!: ILogger;
-    private container!: DependencyContainer;
-    private jsonUtil!: JsonUtil;
-    private profileHelper!: ProfileHelper;
-    private db!: ReturnType<DatabaseServer["getTables"]>;
-
-    private readonly modName = "Tarkov Trading Cards";
-    private readonly debug = Boolean(modConfig.debug);
-    private configInventory: any;
-    private rarityCounts: Record<string, number> = {};
-	
-	private readonly currencyMap: Record<string, string> = {
-		roubles:   "5449016a4bdc2d6f028b456f",
-		dollars:   "5696686a4bdc2da3298b456a",
-		euros:     "5ac3b934156ae10c4430e83c",
-	};
 
     public preSptLoad(container: DependencyContainer): void {
         this.container = container;
     }
 
     public postDBLoad(container: DependencyContainer): void {
-        this.container      = container;
-        this.logger         = container.resolve<ILogger>("WinstonLogger");
-        this.jsonUtil       = container.resolve<JsonUtil>("JsonUtil");
-        this.profileHelper  = container.resolve<ProfileHelper>("ProfileHelper");
+        this.container = container;
+        this.logger = container.resolve<ILogger>("WinstonLogger");
+        this.jsonUtil = container.resolve<JsonUtil>("JsonUtil");
 
-        const databaseServer   = container.resolve<DatabaseServer>("DatabaseServer");
-        this.db                = databaseServer.getTables();
+        const databaseServer = container.resolve<DatabaseServer>("DatabaseServer");
+        this.db = databaseServer.getTables();
 
-        const configServer     = container.resolve<ConfigServer>("ConfigServer");
-        this.configInventory   = configServer.getConfigByString("spt-inventory");
+        const configServer = container.resolve<ConfigServer>("ConfigServer");
+        this.configInventory = configServer.getConfigByString("spt-inventory");
 
         this.log(Color.INFO, "Initialisation");
 
-        // --- Load current probabilities file --
         const probPath = path.resolve(__dirname, "../config/probabilities.json");
         if (fs.existsSync(probPath)) {
             relativeProbabilities = JSON.parse(fs.readFileSync(probPath, "utf-8"));
         }
-        // --- Auto-update if option is enabled ---
+
         if ((modConfig as any).auto_update_probabilities) {
             const regenerated = this.generateProbabilities();
-            // merge (keeps any exotic entries you may have added manually)
             relativeProbabilities = { ...relativeProbabilities, ...regenerated };
             fs.writeFileSync(probPath, JSON.stringify(relativeProbabilities, null, 2));
             this.log(Color.INFO, "probabilities.json auto-updated");
@@ -105,13 +91,14 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
 
         this.extendCardStorageCases();
 
-        // --------------------------------------------------------------
-        // Build Collector Album and append to array --------------------
-        // --------------------------------------------------------------
         const album = this.buildCollectorAlbum(customItemConfigs);
         customItemConfigs.push(album);
     }
 
+    /**
+     * Injects a trading card item into the database, including loot, trader, and handbook integration.
+     * @param cfg Card configuration
+     */
     private injectCard(cfg: typeof customItemConfigs[number]): void {
         this.ensureCompatFilters();
         this.db.templates.items[cfg.id] = this.buildTemplate(cfg);
@@ -121,6 +108,10 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         this.addToLoot(cfg);
     }
 
+    /**
+     * Injects a container item into the game.
+     * @param cfg Container configuration
+     */
     private injectContainer(cfg: typeof customItemConfigs[number]): void {
         this.ensureCompatFilters();
         this.db.templates.items[cfg.id] = this.buildTemplate(cfg);
@@ -129,6 +120,11 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         this.addToTrader(cfg);
     }
 
+    /**
+     * Builds a new item template from a cloned base and applies overrides from the config.
+     * @param cfg Item configuration
+     * @returns New item template
+     */
     private buildTemplate(cfg: typeof customItemConfigs[number]): any {
         const tpl = this.jsonUtil.clone(this.db.templates.items[cfg.clone_item]);
 
@@ -163,6 +159,10 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         return tpl;
     }
 
+    /**
+     * Adds localization strings for all supported languages.
+     * @param cfg Item configuration
+     */
     private addLocales(cfg: typeof customItemConfigs[number]): void {
         for (const locale of Object.values(this.db.locales.global) as Record<string, string>[]) {
             locale[`${cfg.id} Name`] = cfg.item_name;
@@ -171,24 +171,45 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         }
     }
 
+    /**
+     * Adds an item entry to the in-game handbook.
+     * @param cfg Item configuration
+     */
     private addHandbookEntry(cfg: typeof customItemConfigs[number]): void {
         this.db.templates.handbook.Items.push({ Id: cfg.id, ParentId: cfg.category_id, Price: cfg.price });
     }
 
+    /**
+     * Adds the item to a trader’s assortment if marked as sold in config.
+     * @param cfg Item configuration
+     */
     private addToTrader(cfg: typeof customItemConfigs[number]): void {
         if (!cfg.sold) return;
+
         const trader = this.db.traders[cfg.trader] ?? this.db.traders[modConfig.fallback_trader];
         if (!trader) return this.log(Color.DEBUG, `Trader ${cfg.trader} not found for ${cfg.item_short_name}`);
-        trader.assort.items.push({ _id: cfg.id, _tpl: cfg.id, parentId: "hideout", slotId: "hideout", upd: { UnlimitedCount: cfg.unlimited_stock, StackObjectsCount: cfg.stock_amount } });
-        trader.assort.barter_scheme[cfg.id] = [[{ count: cfg.price, _tpl: cfg.currency }]];
-		const currencyTpl = this.currencyMap[cfg.currency] ?? cfg.currency;
-        trader.assort.barter_scheme[cfg.id] = [
-            [{ count: cfg.price, _tpl: currencyTpl }]
-        ];
+
+        const currencyTpl = this.currencyMap[cfg.currency] ?? cfg.currency;
+
+        trader.assort.items.push({
+            _id: cfg.id,
+            _tpl: cfg.id,
+            parentId: "hideout",
+            slotId: "hideout",
+            upd: {
+                UnlimitedCount: cfg.unlimited_stock,
+                StackObjectsCount: cfg.stock_amount
+            }
+        });
+
         trader.assort.barter_scheme[cfg.id] = [[{ count: cfg.price, _tpl: currencyTpl }]];
         trader.assort.loyal_level_items[cfg.id] = cfg.trader_loyalty_level;
     }
 
+    /**
+     * Adds the item to static loot containers on specified maps, with probability based on rarity.
+     * @param cfg Item configuration
+     */
     private addToLoot(cfg: typeof customItemConfigs[number]): void {
         if (!cfg.lootable || !modConfig.enable_container_spawns) return;
 
@@ -210,7 +231,7 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
 
                 const rarityWeight = (modConfig as any)[cfg.rarity];
                 const userMult = (modConfig as any).card_weight_multiplier ?? 1;
-                const globalMult = userMult * 0.2
+                const globalMult = userMult * 0.2;
                 const perRarityPool = baseStats.max_found * globalMult * rarityWeight;
                 const relProb = Math.max(1, Math.ceil(perRarityPool / rarityTotal));
 
@@ -229,7 +250,11 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         }
     }
 
-    /** Scan every map/container and build fresh probability stats. */
+    /**
+     * Iterates over all maps/containers to generate total loot weight data
+     * used to normalize probability injection.
+     * @returns Probabilities object
+     */
     private generateProbabilities(): Record<string, any> {
         const out: Record<string, any> = {};
 
@@ -254,26 +279,22 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
                 };
             }
         }
+
         return out;
     }
 
     /**
-     * Allow every TTC card inside specific containers
-     * – S I C C case and DOC case for now.
+     * Extends the filter of SICC/DOC cases to accept all custom card template IDs.
      */
-    private extendCardStorageCases(): void
-    {
+    private extendCardStorageCases(): void {
         const itemsTable = this.db.templates.items;
 
-        // Target case template IDs
         const targetCases = [
             "5d235bb686f77443f4331278", // S I C C
             "590c60fc86f77412b13fddcf"  // DOC
         ];
 
-        // All card template IDs
         const cardTpls = customItemConfigs.map(c => c.id);
-
         let totalInserted = 0;
 
         for (const caseTpl of targetCases) {
@@ -303,8 +324,12 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         );
     }
 
-    // ------------------------------------------------------------------
-    /** Build the single Collector Album template at runtime (needs DB templates) */
+    /**
+     * Builds the Collector Album container dynamically with one slot per card.
+     * Cards are sorted by rarity and name.
+     * @param cards All injected cards
+     * @returns Album item definition
+     */
     private buildCollectorAlbum(cards: any[]): any {
         const albumBase = JSON.parse(
             fs.readFileSync(path.resolve(__dirname, "../config/album_base.json"), "utf-8")
@@ -316,7 +341,6 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         const album = { ...albumBase, ...albumOverride };
         const mountProps = this.db.templates.items[albumBase.clone_item]._props;
         const genId = () => (Date.now().toString(16) + Math.random().toString(16)).slice(0, 24);
-        const side = 10;  
 
         album._props = {
             ...mountProps,
@@ -343,12 +367,13 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         };
 
         this.injectContainer(album);
-
         this.log(Color.INFO, `Collector Album built successfully with ${cards.length} cards`);
-
         return album;
     }
 
+    /**
+     * Ensures older gear containers have valid filters so card insertion doesn't break them.
+     */
     private ensureCompatFilters(): void {
         const compat = [{ Filter: ["54009119af1c881c07000029"], ExcludedFilter: [""] }];
         for (const item of Object.values(this.db.templates.items)) {
@@ -358,6 +383,12 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         }
     }
 
+    /**
+     * Central logging method to print mod info to the SPT console.
+     * Respects debug flag.
+     * @param color Console text color
+     * @param msg Message to display
+     */
     private log(color: Color, msg: string): void {
         if (color === Color.DEBUG && !this.debug) return;
         this.logger.log(`[${this.modName}] ${msg}`, color);
