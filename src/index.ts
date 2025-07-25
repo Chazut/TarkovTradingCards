@@ -7,11 +7,14 @@ import { JsonUtil } from "@spt/utils/JsonUtil";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 
 import { customItemConfigs } from "./item_configs";
-import * as modConfig from "../config/mod_config.json";
-import * as relativeProbabilities from "../config/probabilities.json";
+import fs  from "fs";
+import path from "path";
+import JSON5 from "json5";
 
-interface RarityCounter { [rarity: string]: number }
+const cfgPath  = path.resolve(__dirname, "../config/mod_config.jsonc");
+const modConfig = JSON5.parse(fs.readFileSync(cfgPath, "utf-8"));
 
+let relativeProbabilities: Record<string, any> = {};
 enum Color {
     INFO = "blue",
     DEBUG = "yellow",
@@ -28,6 +31,7 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
     private readonly modName = "Tarkov Trading Cards";
     private readonly debug = Boolean(modConfig.debug);
     private configInventory: any;
+    private rarityCounts: Record<string, number> = {};
 	
 	private readonly currencyMap: Record<string, string> = {
 		roubles:   "5449016a4bdc2d6f028b456f",
@@ -40,31 +44,51 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
     }
 
     public postDBLoad(container: DependencyContainer): void {
-        this.container = container;
-        this.logger = container.resolve<ILogger>("WinstonLogger");
-        this.jsonUtil = container.resolve<JsonUtil>("JsonUtil");
-        this.profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
-        const databaseServer = container.resolve<DatabaseServer>("DatabaseServer");
-        this.db = databaseServer.getTables();
-        const configServer = container.resolve<ConfigServer>("ConfigServer");
-        this.configInventory = configServer.getConfigByString("spt-inventory");
+        this.container      = container;
+        this.logger         = container.resolve<ILogger>("WinstonLogger");
+        this.jsonUtil       = container.resolve<JsonUtil>("JsonUtil");
+        this.profileHelper  = container.resolve<ProfileHelper>("ProfileHelper");
+
+        const databaseServer   = container.resolve<DatabaseServer>("DatabaseServer");
+        this.db                = databaseServer.getTables();
+
+        const configServer     = container.resolve<ConfigServer>("ConfigServer");
+        this.configInventory   = configServer.getConfigByString("spt-inventory");
 
         this.log(Color.INFO, "Initialisation");
 
-        const rarityCounter: RarityCounter = {};
+        // --- Load current probabilities file --
+        const probPath = path.resolve(__dirname, "../config/probabilities.json");
+        if (fs.existsSync(probPath)) {
+            relativeProbabilities = JSON.parse(fs.readFileSync(probPath, "utf-8"));
+        }
+        // --- Auto-update if option is enabled ---
+        if ((modConfig as any).auto_update_probabilities) {
+            const regenerated = this.generateProbabilities();
+            // merge (keeps any exotic entries you may have added manually)
+            relativeProbabilities = { ...relativeProbabilities, ...regenerated };
+            fs.writeFileSync(probPath, JSON.stringify(relativeProbabilities, null, 2));
+            this.log(Color.INFO, "probabilities.json auto-updated");
+        }
+
+        this.rarityCounts = {};
+        for (const card of customItemConfigs) {
+            this.rarityCounts[card.rarity] = (this.rarityCounts[card.rarity] || 0) + 1;
+        }
 
         for (const card of customItemConfigs) {
-			try {
-				this.injectCard(card);
-				rarityCounter[card.rarity] = (rarityCounter[card.rarity] || 0) + 1;
-			} catch (e) {
-				this.log(Color.ERROR, `Failed to inject ${card.item_short_name}: ${(e as Error).message}`);
-			}
-		}
+            try {
+                this.injectCard(card);
+            } catch (e) {
+                this.log(Color.ERROR, `Failed to inject ${card.item_short_name}: ${(e as Error).message}`);
+            }
+        }
 
-		Object.entries(rarityCounter).forEach(([r, c]) =>
-			this.log(Color.INFO, `→ ${r}: ${c} card(s) loaded.`)
-		);
+        Object.entries(this.rarityCounts).forEach(([rarity, count]) =>
+            this.log(Color.INFO, `→ ${rarity}: ${count} card(s) loaded.`)
+        );
+
+        this.extendCardStorageCases();
     }
 
     private injectCard(cfg: typeof customItemConfigs[number]): void {
@@ -130,24 +154,116 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
 
     private addToLoot(cfg: typeof customItemConfigs[number]): void {
         if (!cfg.lootable || !modConfig.enable_container_spawns) return;
+
+        const rarityTotal = this.rarityCounts[cfg.rarity] ?? 1;
+
         for (const [mapName, containers] of Object.entries(cfg.loot_locations)) {
             const map = this.db.locations[mapName];
             if (!map) {
                 this.log(Color.DEBUG, `Map '${mapName}' not found when adding ${cfg.item_short_name}`);
                 continue;
             }
+
             for (const containerId of containers) {
-                const baseStats = relativeProbabilities[mapName]?.[containerId];
+                const baseStats = (relativeProbabilities as any)[mapName]?.[containerId];
                 if (!baseStats) {
                     this.log(Color.DEBUG, `No probability data for container ${containerId} on ${mapName}`);
                     continue;
                 }
-                const relProb = Math.ceil(baseStats.max_found * modConfig[cfg.rarity]);
+
+                const rarityWeight = (modConfig as any)[cfg.rarity];
+                const userMult = (modConfig as any).card_weight_multiplier ?? 1;
+                const globalMult = userMult * 0.2
+                const perRarityPool = baseStats.max_found * globalMult * rarityWeight;
+                const relProb = Math.max(1, Math.ceil(perRarityPool / rarityTotal));
+
                 map.staticLoot[containerId] ??= { itemDistribution: [] } as any;
-                map.staticLoot[containerId].itemDistribution.push({ tpl: cfg.id, relativeProbability: relProb });
-                this.log(Color.DEBUG, `Added ${cfg.item_short_name} to ${mapName}/${containerId} (prob=${relProb})`);
+                map.staticLoot[containerId].itemDistribution.push({
+                    tpl: cfg.id,
+                    relativeProbability: relProb
+                });
+
+                this.log(
+                    Color.DEBUG,
+                    `Add ${cfg.item_short_name} -> ${mapName}/${containerId}` +
+                    ` | rarityPool=${perRarityPool} | relProb=${relProb}`
+                );
             }
         }
+    }
+
+    /** Scan every map/container and build fresh probability stats. */
+    private generateProbabilities(): Record<string, any> {
+        const out: Record<string, any> = {};
+
+        for (const [mapName, map] of Object.entries(this.db.locations)) {
+            const staticLoot = (map as any).staticLoot;
+            if (!staticLoot) continue;
+
+            for (const [containerId, container] of Object.entries(staticLoot)) {
+                const dist = (container as any).itemDistribution as { relativeProbability: number }[];
+                if (!Array.isArray(dist) || dist.length === 0) continue;
+
+                const total = dist.reduce((s, i) => s + (i.relativeProbability ?? 0), 0);
+                if (total === 0) continue;
+
+                out[mapName] ??= {};
+                out[mapName][containerId] = {
+                    min_found: 1,
+                    max_found: total,
+                    average: Math.round(total / 2),
+                    "15p": Math.round(total * 0.15),
+                    "65p": Math.round(total * 0.65)
+                };
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Allow every TTC card inside specific containers
+     * – S I C C case and DOC case for now.
+     */
+    private extendCardStorageCases(): void
+    {
+        const itemsTable = this.db.templates.items;
+
+        // Target case template IDs
+        const targetCases = [
+            "5d235bb686f77443f4331278", // S I C C
+            "590c60fc86f77412b13fddcf"  // DOC
+        ];
+
+        // All card template IDs
+        const cardTpls = customItemConfigs.map(c => c.id);
+
+        let totalInserted = 0;
+
+        for (const caseTpl of targetCases) {
+            const container = itemsTable[caseTpl];
+            if (!container?._props?.Grids) {
+                this.log(Color.ERROR, `Container ${caseTpl} not found – cannot extend its filter`);
+                continue;
+            }
+
+            for (const grid of container._props.Grids) {
+                for (const filter of grid._props.filters) {
+                    for (const tpl of cardTpls) {
+                        if (!filter.Filter.includes(tpl)) {
+                            filter.Filter.push(tpl);
+                            totalInserted++;
+                        }
+                    }
+                }
+            }
+        }
+
+        this.log(
+            Color.INFO,
+            totalInserted > 0
+                ? `TTC cards injected into SICC & DOC filters (${totalInserted} insertions)`
+                : "TTC cards already present in SICC & DOC filters"
+        );
     }
 
     private ensureCompatFilters(): void {

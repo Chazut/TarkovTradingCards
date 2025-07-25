@@ -1,0 +1,52 @@
+{
+  // ─────────────────────────────────────────────
+  // GENERAL SETTINGS
+  // ─────────────────────────────────────────────
+
+  /* Enable/disable TTC cards spawning in containers.
+     Set to false if you only want to obtain cards
+     through other means (trader, quests, etc.). */
+  "enable_container_spawns": true,
+
+  /* If the Collector trader fails to load for any reason,
+     cards will be sold by this fallback trader ID. */
+  "fallback_trader": "jaeger",
+
+  /* Extra console output. Leave false unless debugging. */
+  "debug": false,
+
+  // ─────────────────────────────────────────────
+  // SPAWN PROBABILITY DATA
+  // ─────────────────────────────────────────────
+
+  /* When true, the mod rebuilds /config/probabilities.json
+     at every game launch so it matches the current
+     SPT-AKI loot tables (recommended). */
+  "auto_update_probabilities": true,
+
+  /* Global weight multiplier for ALL cards.
+       0  → no cards spawn at all
+       0.5 → half the normal spawn rate
+       2  → double the normal spawn rate */
+  "card_weight_multiplier": 1,
+
+  // ─────────────────────────────────────────────
+  // RARITY WEIGHTS  (MUST ADD UP TO 1.0)
+  // ─────────────────────────────────────────────
+  /* These six numbers are fractions of the TOTAL card
+     weight budget. The sum MUST stay exactly 1.0.
+     Example below keeps the vanilla-style rarity curve:
+         Common   50 %
+         Uncommon 28 %
+         Rare     15 %
+         Epic      5 %
+         Legendary 1.5 %
+         Secret    0.5 %
+  */
+  "Common":     0.50,
+  "Uncommon":   0.28,
+  "Rare":       0.15,
+  "Epic":       0.05,
+  "Legendary":  0.015,
+  "Secret":     0.005
+}
