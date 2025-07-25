@@ -1,0 +1,16 @@
+{
+  "clone_item": "5c5952732e2216398b5abda2",
+  "item_parent": "55818b164bdc2ddc698b456c",
+  "category_id": "5b47574386f77428ca22b2f1",
+  "sold": true,
+  "lootable": false,
+  "stack_max_size": 1,
+  "trader_loyalty_level": 1,
+  "can_sell_on_ragfair": false,
+  "currency": "roubles",
+  "weight": 1.0,
+  "unlimited_stock": true,
+  "item_sound": "item_book",
+  "stock_amount": 999999,
+  "ExternalSize": { "width": 1, "height": 1 }
+}

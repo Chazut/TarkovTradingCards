@@ -10,7 +10,7 @@
 
   /* If the Collector trader fails to load for any reason,
      cards will be sold by this fallback trader ID. */
-  "fallback_trader": "jaeger",
+  "fallback_trader": "prapor",
 
   /* Extra console output. Leave false unless debugging. */
   "debug": false,

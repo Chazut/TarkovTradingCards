@@ -9,6 +9,14 @@
       ]
     },
     {
+      "key": "containers/ttc_booster_pack.bundle",
+      "dependencyKeys": [
+        "cubemaps",
+        "shaders",
+        "assets/commonassets/physics/physicsmaterials.bundle"
+      ]
+    },
+    {
       "key": "cards/ttc_common_ak_74n_dust_cover_classic.bundle",
       "dependencyKeys": [
         "cubemaps",

@@ -21,6 +21,21 @@ enum Color {
     ERROR = "red"
 }
 
+const rarityOrder = ["Common", "Uncommon", "Rare", "Epic", "Legendary", "Secret"] as const;
+type Rarity = typeof rarityOrder[number];
+
+const rarityWeight: Record<Rarity, number> = Object.fromEntries(
+    rarityOrder.map((r, idx) => [r, idx])
+) as Record<Rarity, number>;
+
+export function sortByRarity(
+    a: { rarity: Rarity; item_name: string },
+    b: { rarity: Rarity; item_name: string }
+): number {
+    const diff = rarityWeight[a.rarity] - rarityWeight[b.rarity];
+    return diff !== 0 ? diff : a.item_name.localeCompare(b.item_name);
+}
+
 export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
     private logger!: ILogger;
     private container!: DependencyContainer;
@@ -89,6 +104,12 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         );
 
         this.extendCardStorageCases();
+
+        // --------------------------------------------------------------
+        // Build Collector Album and append to array --------------------
+        // --------------------------------------------------------------
+        const album = this.buildCollectorAlbum(customItemConfigs);
+        customItemConfigs.push(album);
     }
 
     private injectCard(cfg: typeof customItemConfigs[number]): void {
@@ -100,30 +121,46 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         this.addToLoot(cfg);
     }
 
+    private injectContainer(cfg: typeof customItemConfigs[number]): void {
+        this.ensureCompatFilters();
+        this.db.templates.items[cfg.id] = this.buildTemplate(cfg);
+        this.addLocales(cfg);
+        this.addHandbookEntry(cfg);
+        this.addToTrader(cfg);
+    }
+
     private buildTemplate(cfg: typeof customItemConfigs[number]): any {
-        const base = this.jsonUtil.clone(this.db.templates.items[cfg.clone_item]);
-        return Object.assign(base, {
+        const tpl = this.jsonUtil.clone(this.db.templates.items[cfg.clone_item]);
+
+        tpl._props = { ...tpl._props, ...(cfg as any)._props };
+
+        if ((cfg as any).Slots) tpl.Slots = (cfg as any).Slots;
+        if ((cfg as any).Grids) tpl.Grids = (cfg as any).Grids;
+
+        Object.assign(tpl, {
             _id: cfg.id,
             _name: cfg.item_name,
-            _parent: cfg.item_parent,
-            _props: {
-                ...base._props,
-                Prefab: { path: cfg.item_prefab_path },
-                Name: cfg.item_name,
-                ShortName: cfg.item_short_name,
-                Description: cfg.item_description,
-                BackgroundColor: cfg.color,
-                CanSellOnRagfair: cfg.can_sell_on_ragfair,
-                StackMaxSize: cfg.stack_max_size,
-                Weight: cfg.weight,
-                Width: cfg.ExternalSize.width,
-                Height: cfg.ExternalSize.height,
-                ItemSound: cfg.item_sound,
-                QuestItem: false,
-                InsuranceDisabled: true,
-                ExaminedByDefault: true
-            }
+            _parent: cfg.item_parent
         });
+
+        Object.assign(tpl._props, {
+            Prefab: { path: cfg.item_prefab_path },
+            Name: cfg.item_name,
+            ShortName: cfg.item_short_name,
+            Description: cfg.item_description,
+            BackgroundColor: cfg.color,
+            CanSellOnRagfair: cfg.can_sell_on_ragfair,
+            StackMaxSize: cfg.stack_max_size,
+            Weight: cfg.weight,
+            Width: cfg.ExternalSize.width,
+            Height: cfg.ExternalSize.height,
+            ItemSound: cfg.item_sound,
+            QuestItem: false,
+            InsuranceDisabled: true,
+            ExaminedByDefault: true
+        });
+
+        return tpl;
     }
 
     private addLocales(cfg: typeof customItemConfigs[number]): void {
@@ -264,6 +301,52 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
                 ? `TTC cards injected into SICC & DOC filters (${totalInserted} insertions)`
                 : "TTC cards already present in SICC & DOC filters"
         );
+    }
+
+    // ------------------------------------------------------------------
+    /** Build the single Collector Album template at runtime (needs DB templates) */
+    private buildCollectorAlbum(cards: any[]): any {
+        const albumBase = JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, "../config/album_base.json"), "utf-8")
+        );
+        const albumOverride = JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, "../config/containers/ttc_booster_pack.json"), "utf-8")
+        );
+
+        const album = { ...albumBase, ...albumOverride };
+        const mountProps = this.db.templates.items[albumBase.clone_item]._props;
+        const genId = () => (Date.now().toString(16) + Math.random().toString(16)).slice(0, 24);
+        const side = 10;  
+
+        album._props = {
+            ...mountProps,
+            Width: 1,
+            Height: 1,
+            Slots: cards
+                .slice()
+                .sort(sortByRarity)
+                .map(c => ({
+                    _id: genId(),
+                    _name: `mod_mount_${c.id}`,
+                    _parent: album.id,
+                    _type: "Slot",
+                    _props: {
+                        filters: [{
+                            Filter: [c.id],
+                            ExcludedFilter: []
+                        }],
+                        required: false,
+                        max_count: 1,
+                        iconId: "mount"
+                    }
+                }))
+        };
+
+        this.injectContainer(album);
+
+        this.log(Color.INFO, `Collector Album built successfully with ${cards.length} cards`);
+
+        return album;
     }
 
     private ensureCompatFilters(): void {
