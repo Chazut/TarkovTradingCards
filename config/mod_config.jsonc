@@ -26,8 +26,10 @@
 
   /* Global weight multiplier for ALL cards.
        0  → no cards spawn at all
-       0.5 → half the normal spawn rate
-       2  → double the normal spawn rate */
+       0.5 → low
+       1 → normal
+       2  → medium
+       3 → high */
   "card_weight_multiplier": 1,
 
   // ─────────────────────────────────────────────
