@@ -6,5 +6,6 @@
   "item_prefab_path": "cards/ttc_legendary_tank_battery.bundle",
   "color": "#FF9C33",
   "price": 150000,
-  "rarity": "Legendary"
+  "rarity": "Legendary",
+  "theme": "memorable_quest_items"
 }

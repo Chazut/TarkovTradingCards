@@ -6,5 +6,6 @@
   "item_prefab_path": "cards/ttc_uncommon_santa_scavs_gift_run.bundle",
   "color": "#66B776",
   "price": 10000,
-  "rarity": "Uncommon"
+  "rarity": "Uncommon",
+  "theme": "seasonal_events"
 }

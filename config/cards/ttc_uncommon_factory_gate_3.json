@@ -1,10 +1,11 @@
 {
   "id": "1e1bafc843d84b681d637409",
   "item_name": "Factory Gate 3 [Uncommon]",
-  "item_short_name": "factory_gate_3",
+  "item_short_name": "Factory Gate 3",
   "item_description": "Last door to freedom, first door to chaos.",
   "item_prefab_path": "cards/ttc_uncommon_factory_gate_3.bundle",
   "color": "#66B776",
   "price": 10000,
-  "rarity": "Uncommon"
+  "rarity": "Uncommon",
+  "theme": "iconic_locations"
 }
