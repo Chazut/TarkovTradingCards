@@ -1,6 +1,6 @@
 {
   "name": "TarkovTradingCards",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "author": "Chazu",
   "license": "MIT",
   "main": "src/index.js",

@@ -1,7 +1,7 @@
 {
   "id": "9f11a79dbf45a861b67ec808",
   "item_name": "TerraGroup Security “Blacksite Guard” [Legendary]",
-  "item_short_name": "blacksite_guard",
+  "item_short_name": "Blacksite Guard",
   "item_description": "Authorized to use deadly force — and to bury the evidence.",
   "item_prefab_path": "cards/ttc_legendary_terragroup_security_blacksite_guard.bundle",
   "color": "#FF9C33",

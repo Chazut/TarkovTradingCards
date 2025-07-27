@@ -109,10 +109,14 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
             cardsByTheme[card.theme].push(card);
         }
 
+        const emptyBoosterContainer = this.buildEmptyBooster(customItemConfigs);
+
         for (const [theme, cards] of Object.entries(cardsByTheme)) {
             const binder = this.buildThemedCardBinder(cards, theme);
             customItemConfigs.push(binder);
         }
+
+        customItemConfigs.push(emptyBoosterContainer);
     }
 
     /**
@@ -381,9 +385,52 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
                 }))
         };
 
+        binder.item_parent = this.db.templates.items[binderBase.clone_item]._parent;
         this.injectContainer(binder);
         this.log(Color.INFO, `Card binder '${theme}' built with ${cards.length} cards`);
         return binder;
+    }
+
+    private buildEmptyBooster(cards: any[]): any {
+        const containerBase = JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, "../config/container_base.json"), "utf-8")
+        );
+        const emptyBoosterOverride = JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, "../config/containers/ttc_empty_booster_pack.json"), "utf-8")
+        );
+
+        const emptyBooster = { ...containerBase, ...emptyBoosterOverride };
+        const iCaseProps = this.db.templates.items[containerBase.clone_item]._props;
+        const side = 4;  
+        const allowedTpls = cards.map(c => c.id);
+
+        emptyBooster._props = {
+            ...iCaseProps,
+            Width: 1,
+            Height: 1,
+            Grids: [
+                {
+                    _name: "emptyBooster",
+                    _props: {
+                        cellsH: side,
+                        cellsV: side,
+                        minCount: 0,
+                        filters: [
+                            {
+                                Filter: allowedTpls,
+                                ExcludedFilter: []
+                            }
+                        ]
+                    }
+                }
+            ]
+        };
+
+        this.injectContainer(emptyBooster);
+
+        this.log(Color.INFO, `Empty Booster built successfully, accepting ${cards.length} cards`);
+
+        return emptyBooster;
     }
 
     /**
