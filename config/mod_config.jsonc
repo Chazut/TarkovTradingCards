@@ -53,12 +53,14 @@
          Legendary 1.5 %
          Secret    0.5 %
   */
-  "Common":     0.50,
-  "Uncommon":   0.28,
-  "Rare":       0.15,
-  "Epic":       0.05,
-  "Legendary":  0.015,
-  "Secret":     0.005,
+  "rarity_weights": {
+    "Common":     0.50,
+    "Uncommon":   0.28,
+    "Rare":       0.15,
+    "Epic":       0.05,
+    "Legendary":  0.015,
+    "Secret":     0.005
+  },
 
   // ─────────────────────────────────────────────
   // TRADER SELL PRICES BY RARITY (in roubles)

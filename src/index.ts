@@ -75,6 +75,9 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
 
         this.log(Color.INFO, "Initialisation");
 
+        // Validate rarity weights before proceeding
+        this.validateRarityWeights();
+
         const probPath = path.resolve(__dirname, "../config/probabilities.json");
         if (fs.existsSync(probPath)) {
             relativeProbabilities = JSON.parse(fs.readFileSync(probPath, "utf-8"));
@@ -276,14 +279,14 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
                 continue;
             }
 
-            for (const containerId of containers) {
+            for (const containerId of containers as string[]) {
                 const baseStats = (relativeProbabilities as any)[mapName]?.[containerId];
                 if (!baseStats) {
                     this.log(Color.DEBUG, `No probability data for container ${containerId} on ${mapName}`);
                     continue;
                 }
 
-                const rarityWeight = (modConfig as any)[cfg.rarity];
+                const rarityWeight = (modConfig as any).rarity_weights[cfg.rarity];
                 const userMult = (modConfig as any).card_weight_multiplier ?? 1;
                 const globalMult = userMult * 0.2;
                 const perRarityPool = baseStats.max_found * globalMult * rarityWeight;
@@ -548,6 +551,37 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
     private log(color: Color, msg: string): void {
         if (color === Color.DEBUG && !this.debug) return;
         this.logger.log(`[${this.modName}] ${msg}`, color);
+    }
+
+    /**
+     * Validates that rarity weights sum to exactly 1.0
+     * Throws an error and stops the mod if validation fails.
+     */
+    private validateRarityWeights(): void {
+        const weights = (modConfig as any).rarity_weights;
+        
+        if (!weights || typeof weights !== 'object') {
+            this.log(Color.ERROR, "rarity_weights object not found in mod_config.jsonc");
+            throw new Error("[TTC] Configuration Error: rarity_weights object is missing or invalid");
+        }
+
+        const requiredRarities = ["Common", "Uncommon", "Rare", "Epic", "Legendary", "Secret"];
+        const sum = requiredRarities.reduce((total, rarity) => {
+            const weight = weights[rarity];
+            if (typeof weight !== 'number') {
+                this.log(Color.ERROR, `rarity_weights.${rarity} is not a number`);
+                throw new Error(`[TTC] Configuration Error: rarity_weights.${rarity} must be a number`);
+            }
+            return total + weight;
+        }, 0);
+
+        const tolerance = 0;
+        if (Math.abs(sum - 1.0) > tolerance) {
+            this.log(Color.ERROR, `rarity_weights sum is ${sum.toFixed(6)} but must equal 1.0`);
+            throw new Error(`[TTC] Configuration Error: rarity_weights must sum to exactly 1.0, got ${sum.toFixed(6)}`);
+        }
+
+        this.log(Color.INFO, `Rarity weights validation passed (sum: ${sum.toFixed(6)})`);
     }
 }
 
