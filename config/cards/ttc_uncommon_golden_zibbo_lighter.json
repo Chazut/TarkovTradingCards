@@ -5,7 +5,7 @@
   "item_description": "“A gangster’s spark—the boss won’t raid without it.”",
   "item_prefab_path": "cards/ttc_uncommon_golden_zibbo_lighter.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "memorable_quest_items"
 }

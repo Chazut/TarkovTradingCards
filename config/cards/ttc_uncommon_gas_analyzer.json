@@ -5,7 +5,7 @@
   "item_description": "Therapist’s favorite gizmo—because ‘air quality’ is lethal here.",
   "item_prefab_path": "cards/ttc_uncommon_gas_analyzer.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "memorable_quest_items"
 }

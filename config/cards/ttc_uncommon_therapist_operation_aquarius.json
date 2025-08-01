@@ -5,7 +5,7 @@
   "item_description": "Clean water is life; expect to pay in blood.",
   "item_prefab_path": "cards/ttc_uncommon_therapist_operation_aquarius.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "traders_and_quests"
 }

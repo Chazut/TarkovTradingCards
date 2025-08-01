@@ -5,7 +5,7 @@
   "item_description": "Speaks with bullets, not words; forged in the Motherland’s fire.",
   "item_prefab_path": "cards/ttc_uncommon_bear_operator_vympel_vet.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "factions_and_pmc"
 }

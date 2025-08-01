@@ -5,7 +5,7 @@
   "item_description": "Pumpkin-masked cultists flood Factory; every slug round echoes like a scream.",
   "item_prefab_path": "cards/ttc_rare_halloween.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "seasonal_events"
 }

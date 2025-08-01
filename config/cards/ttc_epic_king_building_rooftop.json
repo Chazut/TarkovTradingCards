@@ -5,7 +5,7 @@
   "item_description": "Own the high ground; dictate the outcome.",
   "item_prefab_path": "cards/ttc_epic_king_building_rooftop.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "iconic_locations"
 }

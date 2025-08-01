@@ -32,6 +32,14 @@
        3 → high */
   "card_weight_multiplier": 1,
 
+  /* When false, cards will show as "???" until examined.
+     When true, cards show their full details immediately. */
+  "cards_examined_by_default": false,
+
+  /* When true, cards can be bought and sold on the flea market.
+     When false, cards cannot be bought or sold on flea market (raid-only). */
+  "cards_tradeable_on_flea": false,
+
   // ─────────────────────────────────────────────
   // RARITY WEIGHTS  (MUST ADD UP TO 1.0)
   // ─────────────────────────────────────────────
@@ -45,10 +53,26 @@
          Legendary 1.5 %
          Secret    0.5 %
   */
-  "Common":     0.50,
-  "Uncommon":   0.28,
-  "Rare":       0.15,
-  "Epic":       0.05,
-  "Legendary":  0.015,
-  "Secret":     0.005
+  "rarity_weights": {
+    "Common":     0.50,
+    "Uncommon":   0.28,
+    "Rare":       0.15,
+    "Epic":       0.05,
+    "Legendary":  0.015,
+    "Secret":     0.005
+  },
+
+  // ─────────────────────────────────────────────
+  // TRADER SELL PRICES BY RARITY (in roubles)
+  // ─────────────────────────────────────────────
+  /* Prices at which the trader will buy cards from players,
+     organized by rarity level. Higher rarity = higher price. */
+  "trader_sell_prices": {
+    "Common":     5000,
+    "Uncommon":   10000,
+    "Rare":       22500,
+    "Epic":       50000,
+    "Legendary":  150000,
+    "Secret":     400000
+  }
 }

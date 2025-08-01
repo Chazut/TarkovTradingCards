@@ -5,7 +5,7 @@
   "item_description": "Duct tape, dreams, and disassembled guns.",
   "item_prefab_path": "cards/ttc_uncommon_workbench.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "hideout"
 }

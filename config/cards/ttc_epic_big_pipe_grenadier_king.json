@@ -5,7 +5,7 @@
   "item_description": "One-man artillery battery—every corner is pre-fragged.",
   "item_prefab_path": "cards/ttc_epic_big_pipe_grenadier_king.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "bosses_and_mini_bosses"
 }

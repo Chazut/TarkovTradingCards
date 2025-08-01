@@ -5,7 +5,7 @@
   "item_description": "Twelve-gauge diplomacy — politely convincing campers.",
   "item_prefab_path": "cards/ttc_common_saiga_12_room_clearer.bundle",
   "color": "#8A8A8A",
-  "price": 5000,
+  "price": -1,
   "rarity": "Common",
   "theme": "iconic_weapons"
 }

@@ -5,7 +5,7 @@
   "item_description": "“Ho-ho-ho! Extract with this card in stash to roll a random present case.”",
   "item_prefab_path": "cards/ttc_uncommon_santa_scavs_gift_run.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "seasonal_events"
 }

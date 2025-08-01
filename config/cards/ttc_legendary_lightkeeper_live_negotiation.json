@@ -5,7 +5,7 @@
   "item_description": "Pay the toll—or all extracts seal for five minutes of chaos.",
   "item_prefab_path": "cards/ttc_legendary_lightkeeper_live_negotiation.bundle",
   "color": "#FF9C33",
-  "price": 150000,
+  "price": -1,
   "rarity": "Legendary",
   "theme": "seasonal_events"
 }

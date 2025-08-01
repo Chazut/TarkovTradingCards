@@ -5,7 +5,7 @@
   "item_description": "Trust is volatile; betrayal is highly flammable.",
   "item_prefab_path": "cards/ttc_rare_skier_chemical_part_4.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "traders_and_quests"
 }

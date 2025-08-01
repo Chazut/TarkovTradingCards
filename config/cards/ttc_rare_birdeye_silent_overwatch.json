@@ -5,7 +5,7 @@
   "item_description": "If he blinks, you’re already on the ground.",
   "item_prefab_path": "cards/ttc_rare_birdeye_silent_overwatch.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "bosses_and_mini_bosses"
 }

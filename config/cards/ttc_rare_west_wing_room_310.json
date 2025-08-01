@@ -5,7 +5,7 @@
   "item_description": "Rumor has it the LEDX still glows under the dust.",
   "item_prefab_path": "cards/ttc_rare_west_wing_room_310.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "iconic_locations"
 }

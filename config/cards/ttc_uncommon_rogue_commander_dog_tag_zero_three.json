@@ -5,7 +5,7 @@
   "item_description": "“Scratched with a single word: ‘Homecoming’.”",
   "item_prefab_path": "cards/ttc_uncommon_rogue_commander_dog_tag_zero_three.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "secret_artifacts"
 }

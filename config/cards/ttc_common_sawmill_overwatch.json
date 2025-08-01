@@ -5,7 +5,7 @@
   "item_description": "Logs, loot, and long-range legends are made here.",
   "item_prefab_path": "cards/ttc_common_sawmill_overwatch.bundle",
   "color": "#8A8A8A",
-  "price": 5000,
+  "price": -1,
   "rarity": "Common",
   "theme": "iconic_locations"
 }

@@ -5,7 +5,7 @@
   "item_description": "Adrenaline junkie with clearance codes — breach, loot, exfil, repeat.",
   "item_prefab_path": "cards/ttc_epic_raider_labs_crusher.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "factions_and_pmc"
 }

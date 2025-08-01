@@ -5,7 +5,7 @@
   "item_description": "Where recoil goes to die; loved by USEC min-maxers everywhere.",
   "item_prefab_path": "cards/ttc_epic_m4a1_meta.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "iconic_weapons"
 }

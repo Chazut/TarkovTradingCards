@@ -5,7 +5,7 @@
   "item_description": "A floor plan that shouldn’t exist, mapping corridors you’ve never seen.",
   "item_prefab_path": "cards/ttc_rare_blueprint_terragroup_labs_level_3.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "secret_artifacts"
 }

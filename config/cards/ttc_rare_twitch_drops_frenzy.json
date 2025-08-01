@@ -5,7 +5,7 @@
   "item_description": "Play to spawn a Streamer-Signed Crate; contents scale with viewer hype.",
   "item_prefab_path": "cards/ttc_rare_twitch_drops_frenzy.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "seasonal_events"
 }

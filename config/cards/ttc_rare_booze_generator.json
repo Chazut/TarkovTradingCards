@@ -5,7 +5,7 @@
   "item_description": "Distills the good stuff. Moonshine magic for barter, booze, or bold plays.",
   "item_prefab_path": "cards/ttc_rare_booze_generator.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "hideout"
 }

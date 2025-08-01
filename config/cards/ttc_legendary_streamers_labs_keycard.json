@@ -5,7 +5,7 @@
   "item_description": "If chat gives you lemons, raid Labs.",
   "item_prefab_path": "cards/ttc_legendary_streamers_labs_keycard.bundle",
   "color": "#FF9C33",
-  "price": 150000,
+  "price": -1,
   "rarity": "Legendary",
   "theme": "community_memes_and_traditions"
 }

@@ -5,7 +5,7 @@
   "item_description": "Worth more than your stash rent; clinics kill for one.",
   "item_prefab_path": "cards/ttc_epic_ledx_skin_transilluminator.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "memorable_quest_items"
 }

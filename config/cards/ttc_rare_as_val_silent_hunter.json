@@ -5,7 +5,7 @@
   "item_description": "Enemies only hear the thud as they drop.",
   "item_prefab_path": "cards/ttc_rare_as_val_silent_hunter.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "iconic_weapons"
 }
