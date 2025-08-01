@@ -5,7 +5,7 @@
   "item_description": "Pages wax-sealed in blood; debts counted in lives, not roubles.",
   "item_prefab_path": "cards/ttc_legendary_lightkeepers_sealed_ledger.bundle",
   "color": "#FF9C33",
-  "price": 150000,
+  "price": -1,
   "rarity": "Legendary",
   "theme": "secret_artifacts"
 }

@@ -5,7 +5,7 @@
   "item_description": "“Printing money—just add GPUs and time. Lots of time.”",
   "item_prefab_path": "cards/ttc_legendary_bitcoin_farm.bundle",
   "color": "#FF9C33",
-  "price": 150000,
+  "price": -1,
   "rarity": "Legendary",
   "theme": "hideout"
 }

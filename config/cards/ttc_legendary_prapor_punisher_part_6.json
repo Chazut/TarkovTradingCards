@@ -5,7 +5,7 @@
   "item_description": "Black rig, 5.45 thunder—cleanse the Shoreline.",
   "item_prefab_path": "cards/ttc_legendary_prapor_punisher_part_6.bundle",
   "color": "#FF9C33",
-  "price": 150000,
+  "price": -1,
   "rarity": "Legendary",
   "theme": "traders_and_quests"
 }

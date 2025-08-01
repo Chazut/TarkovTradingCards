@@ -5,7 +5,7 @@
   "item_description": "“Calls the shots; Rogues answer with autocannon bursts.”",
   "item_prefab_path": "cards/ttc_legendary_knight_rogue_commander.bundle",
   "color": "#FF9C33",
-  "price": 150000,
+  "price": -1,
   "rarity": "Legendary",
   "theme": "bosses_and_mini_bosses"
 }

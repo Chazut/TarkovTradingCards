@@ -5,7 +5,7 @@
   "item_description": "“Heavy, leaky, and indispensable—like most Tarkov friendships.”",
   "item_prefab_path": "cards/ttc_rare_car_battery.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "memorable_quest_items"
 }

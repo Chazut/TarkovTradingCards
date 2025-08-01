@@ -5,7 +5,7 @@
   "item_description": "The juice to keep secret experiments humming at 230 V.",
   "item_prefab_path": "cards/ttc_rare_military_power_filter.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "memorable_quest_items"
 }

@@ -5,7 +5,7 @@
   "item_description": "Authorized to use deadly force — and to bury the evidence.",
   "item_prefab_path": "cards/ttc_legendary_terragroup_security_blacksite_guard.bundle",
   "color": "#FF9C33",
-  "price": 150000,
+  "price": -1,
   "rarity": "Legendary",
   "theme": "factions_and_pmc"
 }

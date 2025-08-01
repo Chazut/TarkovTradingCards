@@ -5,7 +5,7 @@
   "item_description": "Summons the brothers together—loot’s insane, survival rate… less so.",
   "item_prefab_path": "cards/ttc_epic_killa_and_tagilla_factory_showdown.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "seasonal_events"
 }

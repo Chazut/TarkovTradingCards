@@ -5,7 +5,7 @@
   "item_description": "Only one leaves alive—and tweets about it.",
   "item_prefab_path": "cards/ttc_epic_chad_vs_rat_showdown.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "community_memes_and_traditions"
 }

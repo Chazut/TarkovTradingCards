@@ -5,7 +5,7 @@
   "item_description": "“If it blinks blue, someone’s secrets just went missing.”",
   "item_prefab_path": "cards/ttc_rare_secure_flash_drive.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "memorable_quest_items"
 }

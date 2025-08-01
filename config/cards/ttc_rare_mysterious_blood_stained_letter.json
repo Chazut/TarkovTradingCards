@@ -5,7 +5,7 @@
   "item_description": "The ink bleeds new patterns every full moon.",
   "item_prefab_path": "cards/ttc_rare_mysterious_blood_stained_letter.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "secret_artifacts"
 }

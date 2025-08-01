@@ -5,7 +5,7 @@
   "item_description": "Blueprints whispered into meta-tier monsters.",
   "item_prefab_path": "cards/ttc_epic_mechanic_gunsmith_mastery.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "traders_and_quests"
 }

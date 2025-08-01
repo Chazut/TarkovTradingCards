@@ -5,7 +5,7 @@
   "item_description": "“The hum of progress—or the roar of your dwindling roubles.”",
   "item_prefab_path": "cards/ttc_rare_generator.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "hideout"
 }

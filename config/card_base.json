@@ -7,11 +7,10 @@
   "stack_max_size": 1,
   "trader": "k_collector",
   "trader_loyalty_level": 1,
-  "can_sell_on_ragfair": false,
   "currency": "roubles",
   "weight": 0.001,
   "loot_locations": {
-    "bigmap":   ["578f8782245977354405a1e3", "578f8778245977358849a9b5", "578f87a3245977356274f2cb", "5909e4b686f7747f5b744fa4", "5d6d2b5486f774785c2ba8ea", "5d6d2bb386f774785b07a77a", "5937ef2b86f77408a47244b3"],
+    "bigmap":         ["578f8782245977354405a1e3", "578f8778245977358849a9b5", "578f87a3245977356274f2cb", "5909e4b686f7747f5b744fa4", "5d6d2b5486f774785c2ba8ea", "5d6d2bb386f774785b07a77a", "5937ef2b86f77408a47244b3"],
     "factory4_day":   ["578f8782245977354405a1e3", "578f8778245977358849a9b5", "578f87b7245977356274f2cd", "578f87a3245977356274f2cb"],
     "factory4_night": ["578f8782245977354405a1e3", "578f8778245977358849a9b5", "578f87b7245977356274f2cd", "578f87a3245977356274f2cb"],
     "interchange":    ["578f8778245977358849a9b5", "578f87a3245977356274f2cb", "578f87b7245977356274f2cd", "5d6d2b5486f774785c2ba8ea", "5c052cea86f7746b2101e8d8", "5d6d2bb386f774785b07a77a"],
@@ -27,5 +26,7 @@
   "unlimited_stock": true,
   "item_sound": "item_book",
   "stock_amount": 999999,
+  "examined_by_default": false,
+  "tradeable_on_flea": false,
   "ExternalSize": { "width": 1, "height": 1 }
 }

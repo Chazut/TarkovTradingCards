@@ -5,7 +5,7 @@
   "item_description": "Concrete maze patrolled by restless Rogues.",
   "item_prefab_path": "cards/ttc_rare_water_treatment_plant.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "iconic_locations"
 }

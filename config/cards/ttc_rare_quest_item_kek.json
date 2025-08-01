@@ -5,7 +5,7 @@
   "item_description": "Every time you need it, it’s already gone.",
   "item_prefab_path": "cards/ttc_rare_quest_item_kek.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "community_memes_and_traditions"
 }

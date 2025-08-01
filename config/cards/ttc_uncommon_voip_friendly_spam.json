@@ -5,7 +5,7 @@
   "item_description": "'Friendly, friendly!'—shots fired.",
   "item_prefab_path": "cards/ttc_uncommon_voip_friendly_spam.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "community_memes_and_traditions"
 }

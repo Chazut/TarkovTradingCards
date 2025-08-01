@@ -5,7 +5,7 @@
   "item_description": "USEC reach is global; bullets are the passport.",
   "item_prefab_path": "cards/ttc_rare_peacekeeper_wet_job.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "traders_and_quests"
 }

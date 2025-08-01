@@ -5,7 +5,7 @@
   "item_description": "Look good, frag better—100 scav heads to prove it.",
   "item_prefab_path": "cards/ttc_epic_ragman_the_stylish_one.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "traders_and_quests"
 }

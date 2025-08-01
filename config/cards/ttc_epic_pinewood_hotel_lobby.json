@@ -5,7 +5,7 @@
   "item_description": "Marble floors now cracked—ambush potential intact.",
   "item_prefab_path": "cards/ttc_epic_pinewood_hotel_lobby.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "iconic_locations"
 }

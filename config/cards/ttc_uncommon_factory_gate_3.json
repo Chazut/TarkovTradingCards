@@ -5,7 +5,7 @@
   "item_description": "Last door to freedom, first door to chaos.",
   "item_prefab_path": "cards/ttc_uncommon_factory_gate_3.bundle",
   "color": "#66B776",
-  "price": 10000,
+  "price": -1,
   "rarity": "Uncommon",
   "theme": "iconic_locations"
 }

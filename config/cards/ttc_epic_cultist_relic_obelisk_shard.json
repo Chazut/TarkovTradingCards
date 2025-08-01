@@ -5,7 +5,7 @@
   "item_description": "Cold to the touch and humming with an ancient frequency.",
   "item_prefab_path": "cards/ttc_epic_cultist_relic_obelisk_shard.bundle",
   "color": "#8E5BFF",
-  "price": 50000,
+  "price": -1,
   "rarity": "Epic",
   "theme": "secret_artifacts"
 }

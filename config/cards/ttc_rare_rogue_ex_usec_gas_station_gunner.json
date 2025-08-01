@@ -5,7 +5,7 @@
   "item_description": "Paid enough to defect, paid more to guard someone else’s turf.",
   "item_prefab_path": "cards/ttc_rare_rogue_ex_usec_gas_station_gunner.bundle",
   "color": "#3E7BC1",
-  "price": 22500,
+  "price": -1,
   "rarity": "Rare",
   "theme": "factions_and_pmc"
 }
