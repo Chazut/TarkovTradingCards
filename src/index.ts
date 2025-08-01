@@ -134,6 +134,7 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         this.addHandbookEntry(cfg);
         this.addToTrader(cfg);
         this.addToLoot(cfg);
+        this.addToRagfair(cfg);
     }
 
     /**
@@ -167,14 +168,16 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
             _parent: cfg.item_parent
         });
 
-        // Single config controls both buying and selling on flea market
-        // Priority: individual card config > global config > default (false = raid-only)
-        const canTradeOnFlea = (cfg as any).tradeable_on_flea !== undefined 
-            ? (cfg as any).tradeable_on_flea 
-            : ((modConfig as any).cards_tradeable_on_flea ?? false);
+        // Single global config controls both buying and selling on flea market
+        const canTradeOnFlea = (modConfig as any).cards_tradeable_on_flea ?? false;
 
         // Calculate trader sell price based on rarity
         const traderSellPrice = this.calculateTraderPrice(cfg);
+
+        // Debug logging for flea market configuration
+        if (canTradeOnFlea) {
+            this.log(Color.DEBUG, `Card ${cfg.item_short_name} configured for flea market trading`);
+        }
 
         Object.assign(tpl._props, {
             Prefab: { path: cfg.item_prefab_path },
@@ -184,6 +187,14 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
             BackgroundColor: cfg.color,
             CanSellOnRagfair: canTradeOnFlea,
             CanRequireOnRagfair: canTradeOnFlea,
+            ConflictingItems: [],
+            Unlootable: false,
+            UnlootableFromSlot: "FirstPrimaryWeapon",
+            UnlootableFromSide: [],
+            AnimationVariantsNumber: 0,
+            DiscardingBlock: false,
+            RagFairCommissionModifier: 1,
+            IsAlwaysAvailableForInsurance: false,
             StackMaxSize: cfg.stack_max_size,
             Weight: cfg.weight,
             Width: cfg.ExternalSize.width,
@@ -305,6 +316,51 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
                 );
             }
         }
+    }
+
+    /**
+     * Adds the item to ragfair (flea market) if tradeable on flea is enabled.
+     * @param cfg Item configuration
+     */
+    private addToRagfair(cfg: typeof customItemConfigs[number]): void {
+        // Check global config for flea trading
+        const canTradeOnFlea = (modConfig as any).cards_tradeable_on_flea ?? false;
+
+        if (!canTradeOnFlea) return;
+
+        // Add to ragfair config - ensure the item can appear on flea market
+        const ragfairConfig = this.db.ragfair;
+        
+        // Remove from dynamic blacklist if present
+        if (ragfairConfig?.dynamic?.blacklist) {
+            const blacklistIndex = ragfairConfig.dynamic.blacklist.findIndex((item: any) => item.tpl === cfg.id);
+            if (blacklistIndex !== -1) {
+                ragfairConfig.dynamic.blacklist.splice(blacklistIndex, 1);
+                this.log(Color.DEBUG, `Removed ${cfg.item_short_name} from ragfair dynamic blacklist`);
+            }
+        }
+
+        // Remove from static blacklist if present
+        if (ragfairConfig?.static?.blacklist) {
+            const staticBlacklistIndex = ragfairConfig.static.blacklist.findIndex((item: any) => item.tpl === cfg.id);
+            if (staticBlacklistIndex !== -1) {
+                ragfairConfig.static.blacklist.splice(staticBlacklistIndex, 1);
+                this.log(Color.DEBUG, `Removed ${cfg.item_short_name} from ragfair static blacklist`);
+            }
+        }
+
+        // Check if item's parent category is allowed on ragfair
+        const parentId = cfg.item_parent || this.db.templates.items[cfg.clone_item]?._parent;
+        if (parentId && ragfairConfig?.dynamic?.condition) {
+            // Make sure parent category is not in blacklist by parent
+            const conditionConfig = ragfairConfig.dynamic.condition;
+            if (conditionConfig[parentId] !== undefined) {
+                conditionConfig[parentId] = true; // Enable trading for this parent category
+                this.log(Color.DEBUG, `Enabled ragfair trading for parent category ${parentId}`);
+            }
+        }
+
+        this.log(Color.DEBUG, `Configured ${cfg.item_short_name} for ragfair trading`);
     }
 
     /**

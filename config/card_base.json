@@ -27,6 +27,5 @@
   "item_sound": "item_book",
   "stock_amount": 999999,
   "examined_by_default": false,
-  "tradeable_on_flea": false,
   "ExternalSize": { "width": 1, "height": 1 }
 }
