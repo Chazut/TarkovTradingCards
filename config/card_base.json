@@ -26,6 +26,5 @@
   "unlimited_stock": true,
   "item_sound": "item_book",
   "stock_amount": 999999,
-  "examined_by_default": false,
   "ExternalSize": { "width": 1, "height": 1 }
 }

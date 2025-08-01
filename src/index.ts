@@ -202,7 +202,7 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
             ItemSound: cfg.item_sound,
             QuestItem: false,
             InsuranceDisabled: true,
-            ExaminedByDefault: (cfg as any).examined_by_default ?? (modConfig as any).cards_examined_by_default ?? false
+            ExaminedByDefault: (modConfig as any).cards_examined_by_default ?? false
         });
 
         return tpl;
