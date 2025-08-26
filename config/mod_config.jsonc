@@ -110,6 +110,10 @@
      When false, cards cannot be bought or sold on flea market (raid-only). */
   "cards_tradeable_on_flea": false,
 
+  /* When true, TTC cards are also sold by Fence in addition to any configured trader.
+     When false, Fence won’t sell TTC cards. This is independent from per-card "sold" flags. */
+  "cards_sold_on_fence": false,
+
   // ─────────────────────────────────────────────
   // RARITY WEIGHTS  (MUST ADD UP TO 1.0)
   // ─────────────────────────────────────────────
