@@ -299,7 +299,7 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
 
                 const rarityWeight = (modConfig as any).rarity_weights[cfg.rarity];
                 const userMult = (modConfig as any).card_weight_multiplier ?? 1;
-                const globalMult = userMult * 0.2;
+                const globalMult = userMult * 0.04;
                 const perRarityPool = baseStats.max_found * globalMult * rarityWeight;
                 const relProb = Math.max(1, Math.ceil(perRarityPool / rarityTotal));
 
