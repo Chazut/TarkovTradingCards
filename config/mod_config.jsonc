@@ -32,6 +32,84 @@
        3 → high */
   "card_weight_multiplier": 1,
 
+    /* Per-container loot multipliers (global, applies to all maps).
+          Keys are container template IDs; values are multipliers.
+          1 = default, <1 reduces card spawns from that container type,
+          >1 increases them.
+
+          IMPORTANT – Activation vs. scaling:
+          - A container type only spawns cards if its template ID is present in card_base.json → loot_locations for a map.
+          - Multipliers here only scale containers that are already listed in loot_locations.
+          - To ENABLE a new container type: add its template ID to loot_locations (per map), then tune its multiplier here.
+          - To DISABLE a default container type: either set its multiplier to 0 here (keeps entry but blocks spawns),
+             or remove its ID from loot_locations to fully exclude it from injection.
+
+          Example: to nerf Safes by half, set "578f8782245977354405a1e3": 0.5
+    */
+   "container_multipliers": {
+         // 578f8778245977358849a9b5 : Jacket  — ACTIVE by default (present in loot_locations)
+      "578f8778245977358849a9b5": 1,
+         // 578f8782245977354405a1e3 : Safe  — ACTIVE by default
+      "578f8782245977354405a1e3": 1,
+         // 578f879c24597735401e6bc6 : Cash register  — NOT active by default (add to loot_locations to enable)
+      "578f879c24597735401e6bc6": 1,
+         // 578f87a3245977356274f2cb : Duffle bag  — ACTIVE by default
+      "578f87a3245977356274f2cb": 1,
+         // 578f87ad245977356274f2cc : Wooden crate  — NOT active by default
+      "578f87ad245977356274f2cc": 1,
+         // 578f87b7245977356274f2cd : Drawer  — ACTIVE by default
+      "578f87b7245977356274f2cd": 1,
+         // 5909d24f86f77466f56e6855 : Medbag SMU06  — NOT active by default
+      "5909d24f86f77466f56e6855": 1,
+         // 5909d36d86f774660f0bb900 : Grenade box  — NOT active by default
+      "5909d36d86f774660f0bb900": 1,
+         // 5909d45286f77465a8136dc6 : Wooden ammo box  — NOT active by default
+      "5909d45286f77465a8136dc6": 1,
+         // 5909d4c186f7746ad34e805a : Medcase  — NOT active by default
+      "5909d4c186f7746ad34e805a": 1,
+         // 5909d50c86f774659e6aaebe : Toolbox  — NOT active by default
+      "5909d50c86f774659e6aaebe": 1,
+         // Weapon box variants — NOT active by default
+      "5909d5ef86f77467974efbd8": 1,
+      "5909d76c86f77471e53d2adf": 1,
+      "5909d7cf86f77470ee57d75a": 1,
+      "5909d89086f77472591234a0": 1,
+         // 5909e4b686f7747f5b744fa4 : Dead Scav  — ACTIVE by default
+      "5909e4b686f7747f5b744fa4": 1,
+         // 59139c2186f77411564f8e42 : PC block  — NOT active by default
+      "59139c2186f77411564f8e42": 1,
+         // 5937ef2b86f77408a47244b3 : Jacket (alt)  — ACTIVE by default
+      "5937ef2b86f77408a47244b3": 1,
+         // 5c052cea86f7746b2101e8d8 : Plastic suitcase  — ACTIVE by default
+      "5c052cea86f7746b2101e8d8": 1,
+         // 5d07b91b86f7745a077a9432 : Common fund stash  — ACTIVE by default
+      "5d07b91b86f7745a077a9432": 1,
+         // 5d6d2b5486f774785c2ba8ea : Ground cache  — ACTIVE by default
+      "5d6d2b5486f774785c2ba8ea": 1,
+         // 5d6d2bb386f774785b07a77a : Buried barrel cache  — ACTIVE by default
+      "5d6d2bb386f774785b07a77a": 1,
+         // 5d6fd13186f77424ad2a8c69 : Ration supply crate  — NOT active by default
+      "5d6fd13186f77424ad2a8c69": 1,
+         // 5d6fd45b86f774317075ed43 : Technical supply crate  — NOT active by default
+      "5d6fd45b86f774317075ed43": 1,
+         // 5d6fe50986f77449d97f7463 : Medical supply crate  — NOT active by default
+      "5d6fe50986f77449d97f7463": 1,
+         // 61aa1e9a32a4743c3453d2cf : Duffle bag (alt)  — NOT active by default
+      "61aa1e9a32a4743c3453d2cf": 1,
+         // 61aa1ead84ea0800645777fd : Medbag SMU06 (alt)  — NOT active by default
+      "61aa1ead84ea0800645777fd": 1,
+         // 64d116f41a9c6143a956127d : Bank cash register  — NOT active by default
+      "64d116f41a9c6143a956127d": 1,
+         // 64d11702dd0cd96ab82c3280 : Bank safe  — ACTIVE by default (tarkovstreets)
+      "64d11702dd0cd96ab82c3280": 1,
+         // 6582e6d7b14c3f72eb071420 : PMC body  — ACTIVE by default (sandbox)
+      "6582e6d7b14c3f72eb071420": 1,
+         // 658420d8085fea07e674cdb6 : Civilian body  — ACTIVE by default (sandbox)
+      "658420d8085fea07e674cdb6": 1,
+         // 66acff0a1d8e1083b303f5af : Bank safe (alt)  — NOT active by default
+      "66acff0a1d8e1083b303f5af": 1
+   },
+
   /* When false, cards will show as "???" until examined.
      When true, cards show their full details immediately. */
   "cards_examined_by_default": false,
@@ -39,6 +117,10 @@
   /* When true, cards can be bought and sold on the flea market.
      When false, cards cannot be bought or sold on flea market (raid-only). */
   "cards_tradeable_on_flea": false,
+
+  /* When true, TTC cards are also sold by Fence in addition to any configured trader.
+     When false, Fence won’t sell TTC cards. This is independent from per-card "sold" flags. */
+  "cards_sold_on_fence": false,
 
   // ─────────────────────────────────────────────
   // RARITY WEIGHTS  (MUST ADD UP TO 1.0)

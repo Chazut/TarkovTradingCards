@@ -121,6 +121,9 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         }
 
         customItemConfigs.push(emptyBoosterContainer);
+
+        // Enforce Fence selling policy per config
+        this.applyFenceBlacklistIfDisabled();
     }
 
     /**
@@ -274,6 +277,8 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         trader.assort.loyal_level_items[cfg.id] = cfg.trader_loyalty_level;
     }
 
+    
+
     /**
      * Adds the item to static loot containers on specified maps, with probability based on rarity.
      * @param cfg Item configuration
@@ -299,7 +304,8 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
 
                 const rarityWeight = (modConfig as any).rarity_weights[cfg.rarity];
                 const userMult = (modConfig as any).card_weight_multiplier ?? 1;
-                const globalMult = userMult * 0.2;
+                const containerMult = (modConfig as any).container_multipliers?.[containerId] ?? 1;
+                const globalMult = userMult * containerMult * 0.04;
                 const perRarityPool = baseStats.max_found * globalMult * rarityWeight;
                 const relProb = Math.max(1, Math.ceil(perRarityPool / rarityTotal));
 
@@ -361,6 +367,92 @@ export class TarkovTradingCards implements IPreSptLoadMod, IPostDBLoadMod {
         }
 
         this.log(Color.DEBUG, `Configured ${cfg.item_short_name} for ragfair trading`);
+    }
+
+    /**
+     * If cards_sold_on_fence is false, try to prevent TTC cards from appearing on Fence:
+     * - Purge any existing TTC cards from Fence assort at server start
+     * - Add TTC card tpl ids to any known fence blacklist config structure if present
+     */
+    private applyFenceBlacklistIfDisabled(): void {
+        if ((modConfig as any).cards_sold_on_fence) return;
+
+        this.log(Color.INFO, "Fence selling disabled; applying TTC blacklist");
+
+        const fenceId = "579dc571d53a0658a154fbec"; // Fence traderId from server config
+        const fence = this.db.traders[fenceId] || this.db.traders["fence"];
+        if (!fence) {
+            this.log(Color.INFO, "Fence trader not found in DB at this stage; skipping purge step");
+        }
+        const ttcTpls = new Set(customItemConfigs.map(c => c.id));
+
+        // 1) Remove existing TTC items from current Fence assort
+        if (fence?.assort?.items) {
+            const before = fence.assort.items.length;
+            const oldItems = fence.assort.items.slice();
+            const removedIds: string[] = [];
+            fence.assort.items = oldItems.filter((i: any) => {
+                const remove = ttcTpls.has(i._tpl);
+                if (remove) removedIds.push(i._id);
+                return !remove;
+            });
+
+            // Clean up barter scheme + loyalty for removed item ids
+            for (const id of removedIds) {
+                if (fence.assort.barter_scheme && fence.assort.barter_scheme[id]) {
+                    delete fence.assort.barter_scheme[id];
+                }
+                if (fence.assort.loyal_level_items && fence.assort.loyal_level_items[id]) {
+                    delete fence.assort.loyal_level_items[id];
+                }
+            }
+        } else {
+            this.log(Color.INFO, "Fence assort not available yet; purge will be skipped this pass");
+        }
+
+        // 2) Attempt to push our tpl ids into trader config blacklists so refreshes exclude them
+        try {
+            const configServer = this.container.resolve<ConfigServer>("ConfigServer");
+            // Try multiple common keys across SPT versions
+            let traderCfg: any = configServer.getConfigByString("trader");
+            if (!traderCfg) traderCfg = configServer.getConfigByString("spt-trader");
+            if (!traderCfg) traderCfg = configServer.getConfigByString("traders");
+            if (!traderCfg) traderCfg = configServer.getConfigByString("traderConfig");
+
+            const fenceCfg: any = traderCfg?.fence;
+            if (!fenceCfg) {
+                const keys = traderCfg ? Object.keys(traderCfg) : [];
+                this.log(Color.INFO, `Trader config not accessible or missing 'fence' key; keys seen: [${keys.join(", ")}]`);
+                return;
+            }
+            this.log(Color.INFO, "Updating fence.blacklist in trader config.");
+
+            const addMany = (arr?: any) => {
+                if (!Array.isArray(arr)) return 0;
+                let added = 0;
+                for (const tpl of ttcTpls) {
+                    if (!arr.includes(tpl)) { arr.push(tpl); added++; }
+                }
+                return added;
+            };
+
+            let totalAdded = 0;
+            totalAdded += addMany(fenceCfg.itemsBlacklist);
+            totalAdded += addMany(fenceCfg.itemBlacklist);
+            totalAdded += addMany(fenceCfg.templateBlacklist);
+            totalAdded += addMany(fenceCfg.blacklistTpls);
+            totalAdded += addMany(fenceCfg.blacklist);
+            totalAdded += addMany(fenceCfg.blacklist?.items);
+            totalAdded += addMany(fenceCfg.blacklist?.templates);
+
+            if (totalAdded > 0) {
+                this.log(Color.INFO, `Added ${totalAdded} TTC tpl(s) to Fence blacklist in trader config`);
+            } else {
+                this.log(Color.INFO, "Fence blacklist already up to date or no supported arrays found; relying on purge");
+            }
+        } catch (e) {
+            this.log(Color.DEBUG, `Unable to modify trader/fence config: ${(e as Error).message}`);
+        }
     }
 
     /**
